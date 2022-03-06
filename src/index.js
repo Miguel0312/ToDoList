@@ -23,9 +23,6 @@ const addProject = (title) => {
 };
 
 const addTask = (name, project) => {
-  console.log(
-    name in projectList[project].tasks.map((element) => element.name)
-  );
   if (projectList[project] == undefined) {
     alert("The required project doesn't exist");
   } else if (
@@ -41,6 +38,7 @@ const getProjectList = () => projectList;
 
 addProject("Test");
 addTask("test", "Test");
-console.log(projectList);
+
+sidebar();
 
 export { Project, Task, addProject, addTask, getProjectList };
