@@ -1,9 +1,11 @@
 import { addProject, getProjectList } from "./index.js";
+import { panel } from "./panel.js";
 import Plus from "./plus.png";
+
+let currentProject = "";
 
 const sidebar = () => {
   let sidebar = document.createElement("div");
-  let currentProject = "";
   sidebar.id = "sidebar";
 
   const createProjectDivs = () => {
@@ -50,6 +52,12 @@ const sidebar = () => {
       }
     }
     currentProject = name;
+
+    document
+      .getElementById("content")
+      .removeChild(document.getElementById("panel"));
+
+    panel();
   };
 
   const createAddProjectDiv = () => {
@@ -139,4 +147,6 @@ const sidebar = () => {
   })();
 };
 
-export { sidebar };
+const getCurrentProject = () => currentProject;
+
+export { sidebar, getCurrentProject };

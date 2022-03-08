@@ -1,6 +1,7 @@
 import "./style.css";
 import { navbar } from "./navbar";
 import { sidebar } from "./sidebar";
+import { panel } from "./panel";
 
 var projectList = {};
 
@@ -37,8 +38,10 @@ const addTask = (name, project) => {
 const getProjectList = () => projectList;
 
 addProject("Test");
-addTask("test", "Test");
+addTask("Test1", "Test");
+addTask("Test2", "Test");
 
 sidebar();
+panel();
 
 export { Project, Task, addProject, addTask, getProjectList };

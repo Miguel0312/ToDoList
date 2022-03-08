@@ -15,7 +15,7 @@ body {
 #content {
   width: 100%;
   height: 100%;
-  background-color: #ddd;
+  background-color: #eee;
 }
 
 #nav {
@@ -153,4 +153,72 @@ form {
 .selected {
   background-color: #bbb;
   font-weight: 500;
+}
+
+#panel {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 25%;
+  top: 15%;
+  width: 75%;
+  min-height: 85%;
+  justify-content: left;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 3%;
+}
+
+#projectTitle {
+  font-size: 32px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.taskItem {
+  box-sizing: border-box;
+  width: 70%;
+  font-size: 24px;
+  font-weight: 300;
+  border-radius: 8px;
+  padding: 5px 15px;
+}
+
+.taskItem:hover {
+  background-color: #ccc;
+  cursor: default;
+}
+
+#addTaskDiv {
+  box-sizing: border-box;
+  width: 70%;
+  font-size: 24px;
+  font-weight: lighter;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 8px;
+  margin-top: 20px;
+  padding: 5px 0;
+}
+
+#addTaskDiv:hover {
+  cursor: pointer;
+  background-color: #bbb;
+}
+
+#plusTask {
+  height: 15px;
+  margin: 0 10px;
+}
+
+#addTaskForm {
+  width: 70%;
+  box-sizing: border-box;
+  padding-left: 15px;
+}
+
+#addTaskForm #formText {
+  width: 100%;
 }
