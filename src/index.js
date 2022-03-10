@@ -4,6 +4,12 @@ import { sidebar } from "./sidebar";
 import { panel } from "./panel";
 
 var projectList = {};
+if (localStorage.projectList != undefined)
+  projectList = JSON.parse(localStorage.projectList);
+
+const updateLocalStorage = () => {
+  localStorage.projectList = JSON.stringify(projectList);
+};
 
 const Project = (title) => {
   let tasks = [];
@@ -18,13 +24,17 @@ const Task = (name) => {
 const addProject = (title) => {
   if (projectList[title] == undefined) {
     projectList[title] = Project(title);
+    updateLocalStorage();
   } else {
     alert("Two projects can't have the same name");
   }
 };
 
 const removeProject = (title) => {
-  if (projectList[title] != undefined) delete projectList[title];
+  if (projectList[title] != undefined) {
+    delete projectList[title];
+    updateLocalStorage();
+  }
 };
 
 const addTask = (name, project) => {
@@ -36,6 +46,7 @@ const addTask = (name, project) => {
     alert("There can't be two tasks with the same name in the same project");
   } else {
     projectList[project].tasks.push(Task(name));
+    updateLocalStorage();
   }
 };
 
@@ -49,15 +60,14 @@ const removeTask = (name, title) => {
         break;
       }
     }
-    if (index != -1) project.tasks.splice(index, 1);
+    if (index != -1) {
+      project.tasks.splice(index, 1);
+      updateLocalStorage();
+    }
   }
 };
 
 const getProjectList = () => projectList;
-
-addProject("Test");
-addTask("Test1", "Test");
-addTask("Test2", "Test");
 
 sidebar();
 panel();
