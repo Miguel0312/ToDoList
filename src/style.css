@@ -55,7 +55,7 @@ body {
 
 #addProjectDiv {
   box-sizing: border-box;
-  height: 30px;
+  height: 40px;
   width: 80%;
   max-width: 80%;
   font-size: 20px;
@@ -63,9 +63,9 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-left: 20px;
   border-radius: 5px;
   margin-top: 20px;
+  padding-left: 15px;
 }
 
 #addProjectDiv:hover {
@@ -130,6 +130,9 @@ form {
 }
 
 .projectItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   list-style: none;
   background-image: url("./check-list.png");
   background-repeat: no-repeat;
@@ -147,6 +150,21 @@ form {
 
 .projectItem:hover {
   background-color: #bbb;
+  cursor: pointer;
+}
+
+.deleteButton {
+  font-size: 24px;
+  border: none;
+  background-color: transparent;
+  position: sticky;
+  right: 0;
+  color: transparent;
+  margin-right: 15px;
+}
+
+.projectItem:hover .deleteButton {
+  color: #333;
   cursor: pointer;
 }
 
@@ -177,6 +195,8 @@ form {
 }
 
 .taskItem {
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
   width: 70%;
   font-size: 24px;
@@ -188,6 +208,19 @@ form {
 .taskItem:hover {
   background-color: #ccc;
   cursor: default;
+}
+
+.deleteTaskButton {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid #222;
+  background-color: transparent;
+  margin-right: 10px;
+}
+
+.deleteTaskButton:hover {
+  cursor: pointer;
 }
 
 #addTaskDiv {

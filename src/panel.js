@@ -1,4 +1,4 @@
-import { getProjectList, addTask } from "./index.js";
+import { getProjectList, addTask, removeTask } from "./index.js";
 import { getCurrentProject } from "./sidebar.js";
 import Plus from "./plus.png";
 
@@ -6,6 +6,7 @@ const panel = () => {
   let panel = document.createElement("div");
   panel.id = "panel";
   const updateTasks = () => {
+    panel.innerHTML = "";
     let currentProjectTitle = document.createElement("h3");
     currentProjectTitle.id = "projectTitle";
     currentProjectTitle.textContent = getCurrentProject();
@@ -15,10 +16,27 @@ const panel = () => {
       for (let task of tasks) {
         let taskItem = document.createElement("div");
         taskItem.classList.add("taskItem");
-        taskItem.textContent = task.name;
+
+        let deleteTaskButton = document.createElement("button");
+        deleteTaskButton.classList.add("deleteTaskButton");
+        taskItem.appendChild(deleteTaskButton);
+        deleteTaskButton.addEventListener("click", deleteTask);
+
+        let taskName = document.createElement("p");
+        taskName.textContent = task.name;
+        taskItem.appendChild(taskName);
+
         panel.appendChild(taskItem);
       }
     }
+  };
+
+  const deleteTask = (e) => {
+    let project = getCurrentProject();
+    let name = e.target.parentNode.querySelector("p").textContent;
+    removeTask(name, project);
+    updateTasks();
+    createAddTaskDiv();
   };
 
   const createAddTaskDiv = () => {
@@ -96,10 +114,8 @@ const panel = () => {
     createAddTaskDiv();
   };
 
-  if (getCurrentProject() != "") {
-    updateTasks();
-    createAddTaskDiv();
-  }
+  updateTasks();
+  if (getCurrentProject() != "") createAddTaskDiv();
   document.querySelector("#content").appendChild(panel);
 };
 

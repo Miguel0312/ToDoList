@@ -1,4 +1,4 @@
-import { addProject, getProjectList } from "./index.js";
+import { addProject, getProjectList, removeProject } from "./index.js";
 import { panel } from "./panel.js";
 import Plus from "./plus.png";
 
@@ -23,8 +23,19 @@ const sidebar = () => {
     for (let name in projectList) {
       let projectItem = document.createElement("li");
       projectItem.className = "projectItem";
-      projectItem.textContent = name;
-      projectItem.onclick = selectProject;
+
+      let projectName = document.createElement("p");
+      projectName.textContent = name;
+      projectItem.appendChild(projectName);
+
+      projectItem.addEventListener("click", selectProject);
+
+      let deleteButton = document.createElement("button");
+      deleteButton.classList.add("deleteButton");
+      deleteButton.textContent = "\u00d7";
+      deleteButton.onclick = deleteProjectButton;
+
+      projectItem.appendChild(deleteButton);
       unorderedList.appendChild(projectItem);
     }
 
@@ -39,7 +50,7 @@ const sidebar = () => {
   };
 
   const selectProject = (e) => {
-    let name = e.target.textContent;
+    let name = e.currentTarget.querySelector("p").textContent;
     let projectDivs = document.querySelectorAll(".projectItem");
     for (let proj of projectDivs) {
       if (proj.textContent == currentProject) {
@@ -53,11 +64,27 @@ const sidebar = () => {
     }
     currentProject = name;
 
-    document
-      .getElementById("content")
-      .removeChild(document.getElementById("panel"));
+    if (document.getElementById("panel") != undefined)
+      document
+        .getElementById("content")
+        .removeChild(document.getElementById("panel"));
 
     panel();
+  };
+
+  const deleteProjectButton = (e) => {
+    e.stopPropagation();
+    let name = e.target.parentNode.querySelector("p").textContent;
+    if (name == currentProject) {
+      currentProject = "";
+      document
+        .querySelector("#content")
+        .removeChild(document.querySelector("#panel"));
+      panel();
+    }
+    removeProject(name);
+    sidebar.innerHTML = "";
+    setup();
   };
 
   const createAddProjectDiv = () => {
@@ -141,10 +168,12 @@ const sidebar = () => {
     createAddProjectDiv();
   };
 
-  const setup = (() => {
+  const setup = () => {
     createProjectDivs();
     createAddProjectDiv();
-  })();
+  };
+
+  setup();
 };
 
 const getCurrentProject = () => currentProject;
